@@ -1,8 +1,7 @@
 package Unit;
 
-import Item.Armor;
-import Item.Boots;
-import Item.Weapon;
+import Item.*;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SwordsMan extends Unit {
     public SwordsMan(int hp, String name, int damage, int run) {
@@ -11,20 +10,20 @@ public class SwordsMan extends Unit {
 
 
     public static Unit create() {
-        int random1 = (int) Math.random()*5;
-        int random2 = (int) (5 + Math.random()*10);
-        int random3 = (int) (10 + Math.random()*15);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        Weapon weaponForSwordsMan = new Weapon("Меч", random3,random3);
-        Boots bootsForSwordsMan = new Boots("Сапоги", random1, random1);
-        Armor armorForSwordsMan = new Armor("Крепчайшие доспехи", random3, random3);
-        SwordsMan swordsMan = new SwordsMan(random3, "Мечник", random1, random3);
+
+
+        Weapon weaponForSwordsMan = context.getBean("WeaponBean", Weapon.class);
+        Boots bootsForSwordsMan = context.getBean("BootsBean", Boots.class);
+        Armor armorForSwordsMan = context.getBean("ArmorBean", Armor.class);
+        SwordsMan swordsMan = context.getBean("SwordsManBean", SwordsMan.class);
         weaponForSwordsMan.equipItem(swordsMan);
         bootsForSwordsMan.equipItem(swordsMan);
         armorForSwordsMan.equipItem(swordsMan);
         System.out.println(" СОЗДАН ПЕРСОНАЖ!" + swordsMan.name);
         swordsMan.info();
-
+        context.close();
         return swordsMan;
     }
 }

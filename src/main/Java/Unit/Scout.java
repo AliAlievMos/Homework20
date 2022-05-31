@@ -3,6 +3,7 @@ package Unit;
 import Item.Armor;
 import Item.Boots;
 import Item.Weapon;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Scout extends Unit{
 
@@ -24,19 +25,18 @@ public class Scout extends Unit{
 
 
     public static Unit create() {
-        int random1 = (int) Math.random()*5;
-        int random2 = (int) (5 + Math.random()*10);
-        int random3 = (int) (10 + Math.random()*15);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        Weapon weaponForScout = new Weapon("Легкий кинжал", random1, random1);
-        Boots bootsForScout = new Boots("Быстрейшие сапоги", random1, random3);
-        Armor armorForScout = new Armor("Легкие доспехи", random1, random1);
-        Scout scout = new Scout(random3, "Разведчик", random1, random3);
+        Weapon weaponForScout = context.getBean("WeaponBean", Weapon.class);
+        Boots bootsForScout = context.getBean("BootsBean", Boots.class);
+        Armor armorForScout = context.getBean("ArmorBean", Armor.class);
+        Scout scout = context.getBean("ScoutBean", Scout.class);
         weaponForScout.equipItem(scout);
         bootsForScout.equipItem(scout);
         armorForScout.equipItem(scout);
         System.out.println(" СОЗДАН ПЕРСОНАЖ!" + scout.name);
         scout.info();
+        context.close();
         return scout;
 
     }

@@ -62,17 +62,17 @@ public abstract class   Unit {
         damage = damage - prearmor;
         return damage;
     }
+
     public void info(){
         System.out.println("Юнит: " + this.name);
-//        if (this.weapon != null){
         System.out.println("Оружие: " + this.weapon.name);
-//        System.out.println("Доспехи: " + this.armor.name);
-//        System.out.println("Ботинки: " + this.boots.name);
+        System.out.println("Доспехи: " + this.armor.name);
+        System.out.println("Ботинки: " + this.boots.name);
 
         System.out.println("Общие характеристики:");
         System.out.println("Здоровье: " + this.hp);
-        System.out.println("Броня: " + this.armor);
-        System.out.println("Скорость: " + this.run);
+        System.out.println("Броня: " + this.armor.armor);
+        System.out.println("Скорость: " + chkRun(this));
         System.out.println("Урон: " + this.weapon.damage);
     }
 
